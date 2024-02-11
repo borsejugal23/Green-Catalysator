@@ -1,11 +1,13 @@
 import Footer from "../Pages/Footer";
+import Header from "../Pages/Header";
 import ProductList from "./ProductList";
 
-
 export const Menu = () => {
-  return <>
-      <ProductList/>
-      <Footer/>
+  return (
+    <>
+      <Header />
+      <ProductList />
+      <Footer />
     </>
-  
+  );
 };

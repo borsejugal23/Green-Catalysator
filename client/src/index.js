@@ -4,22 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-// import AuthContextProvider from './context/AuthContext';
+import AuthContextProvider from './context/AuthContext';
 import { Provider } from 'react-redux';
 import { store } from './Redux/store';
 import {ChakraProvider} from "@chakra-ui/react";
 
-document.title="Shop Now"
+document.title="JYX SHOP"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-    {/* <AuthContextProvider>
-    </AuthContextProvider> */}
+    <AuthContextProvider>
       <BrowserRouter>
         <Provider store={store}>
             <App />
         </Provider>
       </BrowserRouter>
+    </AuthContextProvider>
   </ChakraProvider>
 );
 

@@ -26,6 +26,7 @@ const ProductList = () => {
     };
 
     fetchCategories();
+    // fetchLikes()
   }, []);
 
   const handleCategoryChange = (event) => {
@@ -34,13 +35,13 @@ const ProductList = () => {
     console.log(selectedValue);
     dispatch(fetchProductData({ category: selectedValue }));
   };
-
+  
   return (
     <>
       <div className="w-full flex justify-between  p-4">
         <select
           id="categorySelect"
-          className="w-full md:w-2/5 lg:w-1/5 xl:w-1/5  p-2 border border-black rounded-md"
+          className="w-full md:w-2/5 lg:w-1/5 xl:w-1/5  p-2 mx-4 mt-1 border border-black rounded-md"
           value={selectedCategory}
           onChange={handleCategoryChange}
         >
@@ -75,7 +76,7 @@ const ProductList = () => {
           <h1 className="text-xl md:text-xl lg:text-2xl">Data not found</h1>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-0 p-8">
           {data?.map((item) => (
             <ProductCard key={item.id} data={item} />
           ))}
