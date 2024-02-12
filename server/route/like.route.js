@@ -61,18 +61,19 @@ likeRoute.get("/:userId", async(req,res)=>{
             },
           ]);
       
-          const likes= await Like.find({userId :userId}) ;
+          const userAllLikes= await Like.find({userId :userId}) ;
          
       
-        
+  
           // console.log(likesAggregation);
-          const allLikes = likesAggregation.map((likedData) => {
-              const matchingLike = likes.find((like) => like.productId === likedData.productId);
-              return matchingLike
-                ? { ...likedData, liked: matchingLike.liked }
-                : { ...likedData, liked: false };
+          const allLikes = likesAggregation.map((likedData) => { //0
+
+              const userLiked = userAllLikes.find((like) => like.productId === likedData.productId);
+
+              return userLiked   ? { ...likedData, liked: userLiked.liked }
+                                                                                  : { ...likedData, liked: false };
             });
-            console.log(allLikes)
+          
 
             res.status(200).
             send(

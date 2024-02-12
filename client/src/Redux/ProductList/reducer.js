@@ -11,6 +11,7 @@ export const initialState = {
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
+  // console.log(type,payload)
   switch (type) {
     case FETCH_DATA_REQUEST:
       return {

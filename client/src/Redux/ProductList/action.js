@@ -7,7 +7,7 @@ import {
 export const fetchProductData = (query) => async (dispatch) => {
   dispatch({ type: FETCH_DATA_REQUEST });
 
-  const userId= JSON.parse(localStorage.getItem("userId"))
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   try {
     const apiUrl = `https://dummyjson.com/products/${
@@ -15,46 +15,82 @@ export const fetchProductData = (query) => async (dispatch) => {
     }`;
 
     const response = await fetch(apiUrl);
- 
+
     if (!response.ok) {
       dispatch({ type: FETCH_DATA_FAILURE });
       console.error(`Failed to fetch data. Status: ${response.status}`);
       return;
     }
-    
+
     const data = await response.json();
 
-    const products= data.products ;
+    const products = data.products; // Products from open APIs
 
-    let likesData = await fetch(`${process.env.REACT_APP_API_URL}/likes/${userId}`, {
-      mode :"cors" , method :"GET", headers :{"Content-Type" :"application/json"}
-    })
-    console.log("RESSSSSS :: ", likesData)
-    likesData = await likesData.json() ;
-    likesData= likesData.allLikes;
-   
-  
-    
-    const productWithLikes = products.map(product => {
+    let likesData = await fetch(
+      `${process.env.REACT_APP_API_URL}/likes/${userId}`,
+      {
+        mode: "cors",
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    // console.log("RESSSSSS :: ", likesData)
+    likesData = await likesData.json();
+    const likedDataFromDB = likesData.allLikes;
+
+    const productWithLikes = products.map((product) => {
       // Find the corresponding like object based on productId
-      const likeData = likesData.find(like => like.productId === String(product.id)) || {
-        totalLikes: 0,
-        totalDislikes: 0,
-        productId: String(product.id),
-        liked: false
-      };
-    
+      const productIsLiked = likedDataFromDB.find(
+        (like) => like.productId === String(product.id)
+      );
 
-      return { ...product, ...likeData };
+      return productIsLiked
+        ? { ...product, ...productIsLiked }
+        : {
+            ...product,
+            totalLikes: 0,
+            totalDislikes: 0,
+            productId: String(product.id),
+            liked: false,
+          };
     });
 
-    console.log(productWithLikes)
+    console.log(productWithLikes);
 
-  
-
-    dispatch({ type: FETCH_DATA_SUCCESS, payload: data.products });
+    dispatch({ type: FETCH_DATA_SUCCESS, payload: productWithLikes });
   } catch (error) {
     dispatch({ type: FETCH_DATA_FAILURE });
     console.error("Internal Server Error:", error);
+  }
+};
+
+
+export const handleLike_Dislike = ({ productId, like, userId }) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/likes/${productId}/${userId}`,
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ liked: like }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to like/dislike');
+    }
+
+    const result = await response.json();
+    // console.log("Result:", result);
+
+    // You can dispatch any further actions here if needed
+
+  } catch (err) {
+    console.error("Error In Like/Dislike: ", err);
+
+    // You can dispatch an error action if needed
   }
 };

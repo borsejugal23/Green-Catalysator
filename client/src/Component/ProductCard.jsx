@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { handleLike_Dislike } from "../Redux/ProductList/action";
+import { useDispatch } from "react-redux";
 
 export const ProductCard = ({ data }) => {
   const {
@@ -21,51 +23,29 @@ export const ProductCard = ({ data }) => {
     category,
     thumbnail,
     images,
+    liked,
+    totalLikes,
+    totalDislikes,
   } = data;
-  const [like, setLike] = useState(false);
+
   const [dislike, setDislike] = useState(false);
-
   const userId = JSON.parse(localStorage.getItem("userId"));
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const dispatch = useDispatch()
   const openModal = () => {
     setIsModalOpen(true);
   };
-
+  
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  
   const handleLike = async (productId, like) => {
-    setLike((p) => !p);
-    if (dislike) {
-      setDislike(false);
-    }
-    console.log(productId, userId);
-    // return
-
-    await fetch(
-      `${process.env.REACT_APP_API_URL}/likes/${productId}/${userId}`,
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ liked: like }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((result) => {
-        console.log("REsult :::", result);
-      })
-      .catch((err) => {
-        console.error("Error In Like : ", err);
-      });
+   
+    dispatch(handleLike_Dislike({ productId, like, userId }));
   };
+
+  
 
   const settings = {
     dots: true,
@@ -75,7 +55,6 @@ export const ProductCard = ({ data }) => {
     slidesToScroll: 1,
   };
   const originalPrice = price / ((100 - discountPercentage) / 100);
-  // console.log(images);
   return (
     <>
       <div className="bg-white p-4 rounded-md shadow-md leading-loose     transition-transform transform hover:scale-105 font-sans">
@@ -105,21 +84,25 @@ export const ProductCard = ({ data }) => {
 
         <div className="flex mt-2 space-x-3 ">
           <button onClick={() => handleLike(id, true)} className="">
-            {like ? (
-              <ThumbUpAltIcon
-                className={`${like ? "text-red-600" : "text-black"}`}
-              />
+            {liked ? (
+              <ThumbUpAltIcon className={"text-green-600"} />
             ) : (
-              <ThumbUpOffAltIcon
-                className={`${like ? "text-red-600" : "text-black"}`}
-              />
+              <ThumbUpOffAltIcon className="text-black" />
             )}
           </button>
+          <span>{totalLikes}</span>
 
-          <button onClick={() => handleLike(id, false)} className="">
-            {dislike ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
+          <button onClick={() => handleLike(id, false) } className="">
+            {dislike ? (
+              <ThumbDownAltIcon className="text-red-600" />
+            ) : (
+              <ThumbDownOffAltIcon className="text-black" />
+            )}
           </button>
+          <span>{totalDislikes}</span>
         </div>
+        {/* <ThumbDownAltIcon/> fill */}
+        {/* <ThumbDownOffAltIcon/> unfill */}
       </div>
 
       {/* modal to show product details */}

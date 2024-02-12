@@ -26,15 +26,16 @@ const ProductList = () => {
     };
 
     fetchCategories();
-    // fetchLikes()
   }, []);
-
+  
+  
   const handleCategoryChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedCategory(selectedValue);
-    console.log(selectedValue);
+
     dispatch(fetchProductData({ category: selectedValue }));
   };
+  
   
   return (
     <>
