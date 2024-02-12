@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+// ProductCard.js
+
+import { useState } from "react";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
@@ -10,7 +12,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { handleLike_Dislike } from "../Redux/ProductList/action";
 import { useDispatch } from "react-redux";
 
+// ProductCard Component
 export const ProductCard = ({ data }) => {
+  // Destructuring data
   const {
     id,
     title,
@@ -28,25 +32,30 @@ export const ProductCard = ({ data }) => {
     totalDislikes,
   } = data;
 
+  // State for dislike, modal, and userId
   const [dislike, setDislike] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch()
+
+  // Redux dispatch for like/dislike action
+  const dispatch = useDispatch();
+
+  // Function to open the modal
   const openModal = () => {
     setIsModalOpen(true);
   };
-  
+
+  // Function to close the modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  
+
+  // Function to handle like/dislike
   const handleLike = async (productId, like) => {
-   
     dispatch(handleLike_Dislike({ productId, like, userId }));
   };
 
-  
-
+  // Slider settings for multiple images
   const settings = {
     dots: true,
     infinite: true,
@@ -54,11 +63,15 @@ export const ProductCard = ({ data }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  // Calculate original price with discount
   const originalPrice = price / ((100 - discountPercentage) / 100);
+
+  // Render the ProductCard component
   return (
     <>
-      <div className="bg-white p-4 rounded-md shadow-md leading-loose     transition-transform transform hover:scale-105 font-sans">
-        {/* modal will open when click on Image */}
+      <div className="bg-white p-4 rounded-md shadow-md leading-loose transition-transform transform hover:scale-105 font-sans">
+        {/* Modal will open when clicking on the Image */}
         <img
           src={thumbnail}
           alt={title}
@@ -80,8 +93,7 @@ export const ProductCard = ({ data }) => {
           </p>
         </div>
 
-        {/* like dislike features */}
-
+        {/* Like/Dislike features */}
         <div className="flex mt-2 space-x-3 ">
           <button onClick={() => handleLike(id, true)} className="">
             {liked ? (
@@ -92,7 +104,7 @@ export const ProductCard = ({ data }) => {
           </button>
           <span>{totalLikes}</span>
 
-          <button onClick={() => handleLike(id, false) } className="">
+          <button onClick={() => handleLike(id, false)} className="">
             {dislike ? (
               <ThumbDownAltIcon className="text-red-600" />
             ) : (
@@ -101,15 +113,13 @@ export const ProductCard = ({ data }) => {
           </button>
           <span>{totalDislikes}</span>
         </div>
-        {/* <ThumbDownAltIcon/> fill */}
-        {/* <ThumbDownOffAltIcon/> unfill */}
       </div>
 
-      {/* modal to show product details */}
+      {/* Modal to show product details */}
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
-        {/* flex wrap for image array and description part */}
+        {/* Flex wrap for image array and description part */}
         <div className="max-w-3xl mx-auto flex flex-wrap">
-          {/* slider for image array */}
+          {/* Slider for image array */}
           {images.length > 1 ? (
             <div className="w-full md:w-1/2 mb-4">
               <Slider {...settings} className="w-full">
@@ -133,8 +143,8 @@ export const ProductCard = ({ data }) => {
               />
             </div>
           )}
-          {/* description of product */}
-          <div className="w-full md:w-1/2 px-3 py-4">
+          {/* Description of product */}
+          <div className="w-full md:w-1/2 px-4 py-4 ">
             <div className="font-bold text-2xl mb-4">{title}</div>
             <p className="text-gray-700 text-base mb-4">{description}</p>
             <div className="flex mt-2 space-x-3">

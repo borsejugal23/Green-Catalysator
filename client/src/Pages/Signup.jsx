@@ -6,31 +6,41 @@ import { useDispatch } from "react-redux";
 import { signup } from "../Redux/AuthReducer/action";
 import { useToast } from "@chakra-ui/react";
 
+// SignUpForm Component
 const SignUpForm = () => {
+  // Initializing necessary hooks
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Redux dispatch for authentication actions
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+
+  // Context to toggle between login and signup forms
   const { toggle } = useContext(AuthContext);
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     dispatch(signup({ formData: formData, callback: handelcallback }));
   };
+
+  // Callback function after signup action
   const handelcallback = (data) => {
-    setIsSubmitting(false)
+    setIsSubmitting(false);
     if (data.msg === "Registered successfully") {
+      // Display success message if signup is successful
       toast({
         position: "top",
         title: `${data?.msg}`,
@@ -39,6 +49,7 @@ const SignUpForm = () => {
         isClosable: true,
       });
     } else {
+      // Display error message if signup fails
       toast({
         position: "top",
         title: `${data?.msg}`,
@@ -49,9 +60,12 @@ const SignUpForm = () => {
     }
   };
 
+  // Function to toggle between login and signup forms
   const handleToggle = () => {
     toggle();
   };
+
+  // Render the SignUpForm component
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold text-center mb-2">
@@ -63,6 +77,7 @@ const SignUpForm = () => {
           Log in now
         </strong>
       </p>
+      {/* Signup form */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -115,6 +130,7 @@ const SignUpForm = () => {
             required
           />
         </div>
+        {/* Submit button */}
         <button
           type="submit"
           className={`${
@@ -131,4 +147,5 @@ const SignUpForm = () => {
   );
 };
 
+// Export the SignUpForm component
 export default SignUpForm;

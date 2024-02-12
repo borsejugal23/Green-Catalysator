@@ -7,34 +7,42 @@ import { login } from "../Redux/AuthReducer/action";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+// LoginForm Component
 const LoginForm = () => {
+  // Initializing necessary hooks
   const toast = useToast();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // State for handling form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  // Redux dispatch for authentication actions
   const dispatch = useDispatch();
   const { toggle } = useContext(AuthContext);
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  // dinesh@gmail.com
+
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     dispatch(login({ formData: formData, callback: handelcallback }));
   };
 
+  // Callback function after authentication action
   const handelcallback = (data) => {
     console.log(data);
-    setIsSubmitting(false)
+    setIsSubmitting(false);
     if (data.token) {
+      // Display success message if authentication is successful
       toast({
         position: "top",
         title: `${data?.msg}`,
@@ -42,8 +50,10 @@ const LoginForm = () => {
         duration: 3000,
         isClosable: true,
       });
+      // Redirect to the product page on success
       return navigate("/product");
     } else {
+      // Display error message if authentication fails
       toast({
         position: "top",
         title: `${data?.msg}`,
@@ -54,9 +64,12 @@ const LoginForm = () => {
     }
   };
 
+  // Function to toggle between login and signup forms
   const handleToggle = () => {
     toggle();
   };
+
+  // Render the LoginForm component
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold text-center mb-2">
@@ -68,6 +81,8 @@ const LoginForm = () => {
           Sign Up
         </strong>
       </p>
+
+      {/* Login form */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -103,6 +118,7 @@ const LoginForm = () => {
             required
           />
         </div>
+        {/* Submit button */}
         <button
           type="submit"
           className={`${
@@ -119,4 +135,5 @@ const LoginForm = () => {
   );
 };
 
+// Export the LoginForm component
 export default LoginForm;
