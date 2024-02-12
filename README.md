@@ -1,5 +1,5 @@
 ## About 
-SpaceX, a pioneering aerospace company, specializes in designing, manufacturing, and launching cutting-edge rockets and spacecraft, pushing the boundaries of space exploration and technology
+ Grab Your Favourite Styles Ranging from Clothing, Footwear And Accessories, Now at JSX SHOP. Refresh Your Style With Latest Brands At Best Price From JSX SHOP Only For You. Shop Now! Premium Brands For Every Occasion.
 
 <h3 align="left">Languages and Tools:</h3>
 <p align="left" style="width: 90%; margin: auto; padding: 23px; display: flex; gap: 18px;">
@@ -41,21 +41,21 @@ SpaceX, a pioneering aerospace company, specializes in designing, manufacturing,
   - Utilizes animated CSS for a visually appealing user interface.
 
 - **Three Main Sections:**
-  1. **Banner:**
-      - Showcases a modern banner layout with captivating visuals.
-  2. **Search Form:**
-      - Fully functional search form with three filters for enhanced user interaction.
+  1. **Header:**
+      - Showcases a modern Header layout with captivating visuals.
+  2. **Category Filter:**
+      - Fully functional category with multiple filters for enhanced user interaction.
   3. **Data Grid:**
       - Presents data in an elegant grid format, optimized for readability.
 
 ## Interactive Features
 
-- **Search Form Enhancements:**
-  - Implements a fully functional search form with three filters for a seamless user experience.
+- **Category Enhancements:**
+  - Implements a fully functional category with multiple filters for a seamless user experience.
   - Optimized queries to ensure quick data retrieval for enhanced performance.
 
-- **Pagination:**
-  - Implements pagination for the data grid, allowing users to navigate through results efficiently.
+- **Like & Dislike:**
+  - Implements Like and Dislike for the data grid, allowing users to choose better product through results efficiently.
 
 - **Popup for Detailed Data:**
   - Provides a popup interface to display detailed information when an item is clicked in the data grid.
@@ -77,12 +77,9 @@ SpaceX, a pioneering aerospace company, specializes in designing, manufacturing,
 
 ## Deployment
 
-- The application is deployed at [Cyclic](https://good-ruby-woodpecker-gown.cyclic.app).
+- The application is deployed at [Render](https://grenn-catalystor.onrender.com).
 
 - Explore the live application on [Vercel](https://brainstormforce.vercel.app/spacex).
-
-## Video Demo
-[Watch Video Demo](https://drive.google.com/file/d/1S2PSK74WcC4AF4ElkanjYGKBi860s18x/view?usp=sharing)
 
 
 ## Application View
