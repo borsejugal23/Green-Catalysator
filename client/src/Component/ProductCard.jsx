@@ -121,7 +121,7 @@ export const ProductCard = ({ data }) => {
         <div className="max-w-3xl mx-auto flex flex-wrap">
           {/* Slider for image array */}
           {images.length > 1 ? (
-            <div className="w-full md:w-1/2 mb-4">
+            <div className="w-full md:w-1/2 mb-4 pr-4">
               <Slider {...settings} className="w-full">
                 {images.map((image, index) => (
                   <div key={index}>
@@ -135,7 +135,7 @@ export const ProductCard = ({ data }) => {
               </Slider>
             </div>
           ) : (
-            <div className="w-full md:w-1/2 mb-4">
+            <div className="w-full md:w-1/2 mb-4 pr-4">
               <img
                 src={images[0]}
                 alt={`Product 1`}
@@ -144,7 +144,7 @@ export const ProductCard = ({ data }) => {
             </div>
           )}
           {/* Description of product */}
-          <div className="w-full md:w-1/2 px-4 py-4 ">
+          <div className="w-full md:w-1/2 px-3 py-4">
             <div className="font-bold text-2xl mb-4">{title}</div>
             <p className="text-gray-700 text-base mb-4">{description}</p>
             <div className="flex mt-2 space-x-3">
