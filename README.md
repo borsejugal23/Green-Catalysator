@@ -1,4 +1,4 @@
-![Screenshot 2024-02-12 091527](https://github.com/borsejugal23/Green-Catalysator/assets/115457172/a396f6b2-54d2-402a-895b-fdb4098bc225)## About 
+## About 
  Grab Your Favourite Styles Ranging from Clothing, Footwear And Accessories, Now at JSX SHOP. Refresh Your Style With Latest Brands At Best Price From JSX SHOP Only For You. Shop Now! Premium Brands For Every Occasion.
 
 <h3 align="left">Languages and Tools:</h3>
