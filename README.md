@@ -79,7 +79,7 @@
 
 - The application is deployed at [Render](https://grenn-catalystor.onrender.com).
 
-- Explore the live application on [Vercel](https://brainstormforce.vercel.app/spacex).
+- Explore the live application on [Vercel](https://green-catalysator.vercel.app/).
 
 
 ## Application View
