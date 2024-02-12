@@ -134,7 +134,7 @@ export const ProductCard = ({ data }) => {
             </div>
           )}
           {/* description of product */}
-          <div className="w-full md:w-1/2 px-6 py-4">
+          <div className="w-full md:w-1/2 px-3 py-4">
             <div className="font-bold text-2xl mb-4">{title}</div>
             <p className="text-gray-700 text-base mb-4">{description}</p>
             <div className="flex mt-2 space-x-3">
