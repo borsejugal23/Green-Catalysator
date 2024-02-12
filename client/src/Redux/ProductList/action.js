@@ -5,6 +5,7 @@ import {
 } from "../actionTypes";
 
 export const fetchProductData = (query) => async (dispatch) => {
+  if(!query.refetch)
   dispatch({ type: FETCH_DATA_REQUEST });
 
   const userId = JSON.parse(localStorage.getItem("userId"));
@@ -36,6 +37,7 @@ export const fetchProductData = (query) => async (dispatch) => {
     );
     // console.log("RESSSSSS :: ", likesData)
     likesData = await likesData.json();
+
     const likedDataFromDB = likesData.allLikes;
 
     const productWithLikes = products.map((product) => {
@@ -56,8 +58,12 @@ export const fetchProductData = (query) => async (dispatch) => {
     });
 
     console.log(productWithLikes);
-
-    dispatch({ type: FETCH_DATA_SUCCESS, payload: productWithLikes });
+    if(query.refetch){
+      console.log("refectch")
+    dispatch({type:"RE_FETCH_DATA_SUCCESS",payload:productWithLikes})}
+    else{
+      console.log("normal fetch")
+    dispatch({ type: FETCH_DATA_SUCCESS, payload: productWithLikes });}
   } catch (error) {
     dispatch({ type: FETCH_DATA_FAILURE });
     console.error("Internal Server Error:", error);
@@ -65,7 +71,8 @@ export const fetchProductData = (query) => async (dispatch) => {
 };
 
 
-export const handleLike_Dislike = ({ productId, like, userId }) => async (dispatch) => {
+export const handleLike_Dislike = ({ productId, like, userId, categories }) => async (dispatch) => {
+  console.log(categories)
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/likes/${productId}/${userId}`,
@@ -78,6 +85,8 @@ export const handleLike_Dislike = ({ productId, like, userId }) => async (dispat
         body: JSON.stringify({ liked: like }),
       }
     );
+
+   dispatch(fetchProductData({category:categories,refetch:true}));
 
     if (!response.ok) {
       throw new Error('Failed to like/dislike');

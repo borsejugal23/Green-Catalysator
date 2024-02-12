@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductData } from "../Redux/ProductList/action";
+import { fetchProductData, handleLike_Dislike } from "../Redux/ProductList/action";
 import { Spinner } from "@chakra-ui/react";
 import { ProductCard } from "./ProductCard";
 
@@ -45,7 +45,7 @@ const ProductList = () => {
     // Fetch product data based on selected category
     dispatch(fetchProductData({ category: selectedValue }));
   };
-
+  
   // Render the ProductList component
   return (
     <>
@@ -92,7 +92,7 @@ const ProductList = () => {
         // Display product cards
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-0 p-8">
           {data?.map((item) => (
-            <ProductCard key={item.id} data={item} />
+            <ProductCard key={item.id} data={item} categories={selectedCategory}/>
           ))}
         </div>
       )}

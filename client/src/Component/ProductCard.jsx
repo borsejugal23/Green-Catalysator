@@ -13,8 +13,9 @@ import { handleLike_Dislike } from "../Redux/ProductList/action";
 import { useDispatch } from "react-redux";
 
 // ProductCard Component
-export const ProductCard = ({ data }) => {
+export const ProductCard = ({ data ,categories}) => {
   // Destructuring data
+  console.log("productcard",categories)
   const {
     id,
     title,
@@ -30,6 +31,7 @@ export const ProductCard = ({ data }) => {
     liked,
     totalLikes,
     totalDislikes,
+    
   } = data;
 
   // State for dislike, modal, and userId
@@ -52,8 +54,9 @@ export const ProductCard = ({ data }) => {
 
   // Function to handle like/dislike
   const handleLike = async (productId, like) => {
-    dispatch(handleLike_Dislike({ productId, like, userId }));
+    dispatch(handleLike_Dislike({ productId, like, userId ,categories }));
   };
+
 
   // Slider settings for multiple images
   const settings = {

@@ -18,9 +18,16 @@ export const reducer = (state = initialState, { type, payload }) => {
         ...state,
         isLoading: true,
         isError: false,
-        data: [],
+        data: state.data,
       };
     case FETCH_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: payload,
+      };
+    case "RE_FETCH_DATA_SUCCESS":
       return {
         ...state,
         isLoading: false,

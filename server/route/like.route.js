@@ -18,7 +18,7 @@ likeRoute.post("/:productId/:userId", async (req, res) => {
     { $set: { liked } },
     { upsert: true }
   );
-  console.log(newLike);
+  // console.log(newLike);
 
   return res.status(201).json({
     message: "success",
